@@ -122,31 +122,39 @@ function ams_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
   _ams_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
-/**
- * Functions below this ship commented out. Uncomment as required.
- *
 
-/**
- * Implements hook_civicrm_preProcess().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
- *
-function ams_civicrm_preProcess($formName, &$form) {
+function ams_civicrm_alterMailParams(&$params, $context) {
+  CRM_Core_Error::debug_var('$params 33', $params, false, true);
+  CRM_Core_Error::debug_var('$context 33', $context, false, true);
+  // when Send test then:
+  // $context = 'civimail';
 
+  // when Send an Email then:
+  // $context = '';
 }
 
-*/
-
 
 /**
- * Implements hook_civicrm_alterMail().
+ * Implements hook_civicrm_alterMailer().
  *
  * @param $mailer
  * @param $driver
  * @param $params
  */
-function amd_civicrm_alterMail(&$mailer, $driver, $params) {
-  CRM_Core_Error::debug_var('$mailer', $mailer, false, true);
-  CRM_Core_Error::debug_var('$driver', $driver, false, true);
-  CRM_Core_Error::debug_var('$params', $params, false, true);
+function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
+  CRM_Core_Error::debug_var('$mailer 22', $mailer, false, true);
+  // todo how to set up "_extparams" key?
+
+  CRM_Core_Error::debug_var('$driver 22', $driver, false, true);
+  CRM_Core_Error::debug_var('$params 22', $params, false, true);
+
+  if (array_key_exists('ams', $params) && $params['ams']) {
+    // update $mailer and $params to new alternate mailing server
+    $mailingInfoAlternate = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME,
+      'mailing_backend_alternate'
+    );
+
+  }
 }
+
+
