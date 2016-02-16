@@ -153,8 +153,6 @@ function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
     $mailingInfoAlternate = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME,
       'mailing_backend_alternate'
     );
-
+    CRM_Core_Error::debug_var('$mailingInfoAlternate', $mailingInfoAlternate, false, true);
   }
 }
-
-
