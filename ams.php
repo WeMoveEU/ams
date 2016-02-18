@@ -123,14 +123,17 @@ function ams_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
 }
 
 
+/**
+ * Implements hook_civicrm_alterMailParams().
+ *
+ * @param $params
+ * @param $context
+ */
 function ams_civicrm_alterMailParams(&$params, $context) {
-  CRM_Core_Error::debug_var('$params 33', $params, false, true);
-  CRM_Core_Error::debug_var('$context 33', $context, false, true);
-  // when Send test then:
-  // $context = 'civimail';
-
-  // when Send an Email then:
-  // $context = '';
+  if (array_key_exists('ams', $params) && $params['ams']) {
+    $session = CRM_Core_Session::singleton();
+    $session->set('ams', $params['ams'], 'ams');
+  }
 }
 
 
@@ -142,17 +145,10 @@ function ams_civicrm_alterMailParams(&$params, $context) {
  * @param $params
  */
 function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
-  CRM_Core_Error::debug_var('$mailer 22', $mailer, false, true);
-  // todo how to set up "_extparams" key?
-
-  CRM_Core_Error::debug_var('$driver 22', $driver, false, true);
-  CRM_Core_Error::debug_var('$params 22', $params, false, true);
-
-  if (array_key_exists('ams', $params) && $params['ams']) {
-    // update $mailer and $params to new alternate mailing server
-    $mailingInfoAlternate = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME,
-      'mailing_backend_alternate'
-    );
-    CRM_Core_Error::debug_var('$mailingInfoAlternate', $mailingInfoAlternate, false, true);
+  $session = CRM_Core_Session::singleton();
+  $ams = $session->get('ams', 'ams');
+  CRM_Core_Error::debug_var('$ams', $ams, false, true);
+  if ($ams) {
+    $mailingInfoAlternate = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, 'mailing_backend_alternate');
   }
 }
