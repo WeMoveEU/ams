@@ -147,8 +147,23 @@ function ams_civicrm_alterMailParams(&$params, $context) {
 function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
   $session = CRM_Core_Session::singleton();
   $ams = $session->get('ams', 'ams');
-  CRM_Core_Error::debug_var('$ams', $ams, false, true);
   if ($ams) {
-    $mailingInfoAlternate = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, 'mailing_backend_alternate');
+    $setting = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, 'mailing_backend_alternate');
+    if ($setting['outBound_option'] == CRM_Mailing_Config::OUTBOUND_OPTION_SMTP) {
+      $params['host'] = $setting['smtpServer'] ? $setting['smtpServer'] : 'localhost';
+      $params['port'] = $setting['smtpPort'] ? $setting['smtpPort'] : 25;
+      $mailer->host = $params['host'];
+      $mailer->port = $params['port'];
+      if ($setting['smtpAuth']) {
+        $params['username'] = $setting['smtpUsername'];
+        $params['password'] = CRM_Utils_Crypt::decrypt($setting['smtpPassword']);
+        $params['auth'] = TRUE;
+        $mailer->username = $params['username'];
+        $mailer->password = $params['password'];
+      } else {
+        $params['auth'] = FALSE;
+      }
+      $mailer->auth = $params['auth'];
+    }
   }
 }
