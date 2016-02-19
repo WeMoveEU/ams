@@ -2,7 +2,17 @@
 
 Extension provides handling alternate mailing servers in CiviCRM.
 
+Assumptions:
+
+* each alternate server has own setting `mailing_backend_alternate[1-9]`,
+    * first at `mailing_backend_alternate1`,
+    * second at `mailing_backend_alternate2`,
+* in session variable is stored which server will be used,
+* server is changed by `hook_civicrm_alterMailer()`.
+
 ## How to switch on
+
+There are two ways for switch on:
 
 * set up params for hook_civicrm_alterMailParams():
 ```php
