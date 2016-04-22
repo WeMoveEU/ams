@@ -185,3 +185,14 @@ function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
     }
   }
 }
+
+
+/**
+ * Implements hook_civicrm_postEmailSend().
+ *
+ * @param $params
+ */
+function ams_civicrm_postEmailSend(&$params) {
+  $session = CRM_Core_Session::singleton();
+  $session->set('ams', null, 'ams');
+}
