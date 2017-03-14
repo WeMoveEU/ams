@@ -12,7 +12,7 @@ Assumptions:
 
 ## How it works
 
-The extension rewrites `$mailer` object in `hook_civicrm_alterMailParams()`. Remember that CiviMail doesn't use this hook, so it's not possible to change setting for CiviMail by this extension. Instead of this use default setting `mailing_backend` provided by page Outbound Mail.
+The extension rewrites `$mailer` object in `hook_civicrm_alterMailParams()`. Remember that CiviMail doesn't use this hook, so it's **not** possible to change setting for CiviMail by this extension. Instead of this use default setting `mailing_backend` provided by page Outbound Mail.
 
 ## How to switch on
 
@@ -35,11 +35,21 @@ SET value = 's:120:"/Scheduled Reminder Sender/
 /Scheduled Reminder Sender/
 /Report Email Sender/
 /Mailing Event .*/";'
-WHERE group_name = 'Mailing Preferences' AND name = 'reGroupName1';
+WHERE name = 'reGroupName1';
 
 UPDATE civicrm_setting
 SET value = 's:0:"";'
-WHERE group_name = 'Mailing Preferences' AND name = 'reGroupName2';
+WHERE name = 'reGroupName2';
+```
+
+Emails from `reGroupName1` uses `mailing_backend_alternate1`.
+
+How to set up first alternate server as a current Outbound Mail:
+
+```sql
+UPDATE civicrm_setting
+SET value = (SELECT value FROM civicrm_setting WHERE name = 'mailing_backend')
+WHERE name = 'mailing_backend_alternate1';
 ```
 
 ## Meaning of value
