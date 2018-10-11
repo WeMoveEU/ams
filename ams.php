@@ -138,7 +138,7 @@ function ams_civicrm_alterMailParams(&$params, $context) {
     foreach (array(1, 2) as $key) {
       $setting = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, 'reGroupName'.$key);
       if ($setting) {
-        $reTab = explode("\n", $setting);
+        $reTab = explode("||", $setting);
         if (is_array($reTab) && count($reTab) > 0) {
           foreach ($reTab as $re) {
             if (preg_match(trim($re), $params['groupName'])) {
