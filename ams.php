@@ -130,21 +130,23 @@ function ams_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  * @param $context
  */
 function ams_civicrm_alterMailParams(&$params, $context) {
-  if (array_key_exists('ams', $params) && $params['ams']) {
-    $session = CRM_Core_Session::singleton();
-    $session->set('ams', $params['ams'], 'ams');
-  }
-  else if (array_key_exists('groupName', $params)) {
-    foreach (array(1, 2) as $key) {
-      $setting = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, 'reGroupName'.$key);
-      if ($setting) {
-        $reTab = explode("||", $setting);
-        if (is_array($reTab) && count($reTab) > 0) {
-          foreach ($reTab as $re) {
-            if (preg_match(trim($re), $params['groupName'])) {
-              $session = CRM_Core_Session::singleton();
-              $session->set('ams', $key, 'ams');
-              break;
+  if ($context == 'singleEmail') {
+    if (array_key_exists('ams', $params) && $params['ams']) {
+      $session = CRM_Core_Session::singleton();
+      $session->set('ams', $params['ams'], 'ams');
+    }
+    else if (array_key_exists('groupName', $params)) {
+      foreach (array(1, 2) as $key) {
+        $setting = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, 'reGroupName'.$key);
+        if ($setting) {
+          $reTab = explode("||", $setting);
+          if (is_array($reTab) && count($reTab) > 0) {
+            foreach ($reTab as $re) {
+              if (preg_match(trim($re), $params['groupName'])) {
+                $session = CRM_Core_Session::singleton();
+                $session->set('ams', $key, 'ams');
+                break;
+              }
             }
           }
         }
