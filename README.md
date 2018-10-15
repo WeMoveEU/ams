@@ -12,7 +12,7 @@ Assumptions:
 
 ## How it works
 
-The extension rewrites `$mailer` object in `hook_civicrm_alterMailParams()`. Remember that CiviMail doesn't use this hook, so it's **not** possible to change setting for CiviMail by this extension. Instead of this use default setting `mailing_backend` provided by page Outbound Mail.
+The extension rewrites `$mailer` object in `hook_civicrm_alterMailParams()`. Remember that CiviMail doesn't use this hook, so it's **not** possible to change setting for CiviMail by this extension. Instead of this CiviMail uses default setting `mailing_backend` provided by page Outbound Mail.
 
 ## How to switch on
 
@@ -30,11 +30,7 @@ $session->set('ams', 1, 'ams');
 * set up `groupName` in settings `reGroupName*`. Use sql query to update, for example:
 ```sql
 UPDATE civicrm_setting
-SET value = 's:120:"/Scheduled Reminder Sender/
-/Activity Email Sender/
-/Scheduled Reminder Sender/
-/Report Email Sender/
-/Mailing Event .*/";'
+SET value = 's:124:"/Scheduled Reminder Sender/||/Activity Email Sender/||/Scheduled Reminder Sender/||/Report Email Sender/||/Mailing Event .*/";'
 WHERE name = 'reGroupName1';
 
 UPDATE civicrm_setting
@@ -42,7 +38,7 @@ SET value = 's:0:"";'
 WHERE name = 'reGroupName2';
 ```
 
-Emails from `reGroupName1` uses `mailing_backend_alternate1`.
+Emails from `reGroupName1` uses `mailing_backend_alternate1` configuration.
 
 How to set up first alternate server as a current Outbound Mail:
 
