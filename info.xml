@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <extension key="eu.wemove.ams" type="module">
   <file>ams</file>
-  <name>Alternate Mailing Server</name>
-  <description>Alternate Mailing Server</description>
+  <name>Alternative Mailer Server</name>
+  <description>Alternative Mailer Server</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>scardinius</author>
@@ -18,9 +18,9 @@
   <version>1.0</version>
   <develStage>alpha</develStage>
   <compatibility>
-    <ver>4.2</ver>
+    <ver>5.3</ver>
   </compatibility>
-  <comments>This is a new, undeveloped module</comments>
+  <comments>Alternative Mailer Server</comments>
   <civix>
     <namespace>CRM/Ams</namespace>
   </civix>
