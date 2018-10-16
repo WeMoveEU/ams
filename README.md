@@ -1,18 +1,35 @@
-# Alternate Mailing Server
+# Alternative Mailer Support
 
-Extension provides handling alternate mailing servers in CiviCRM for transactional emails (not CiviMail!).
+Extension provides handling mailer objects in CiviCRM for transactional emails (not CiviMail!).
+
+There is no user interface, yet.
 
 Assumptions:
 
-* each alternate server has own setting `mailing_backend_alternate[1-9]`,
+* each alternative mailer has own setting `mailing_backend_alternate[1-2]`,
     * first at `mailing_backend_alternate1`,
     * second at `mailing_backend_alternate2`,
-* in session variable `ams` is stored which server will be used,
-* server is changed by `hook_civicrm_alterMailer()`.
+* in session variable `ams` is stored which mailer will be used,
+* mailer is changed by `hook_civicrm_alterMailer()`.
 
 ## How it works
 
 The extension rewrites `$mailer` object in `hook_civicrm_alterMailParams()`. Remember that CiviMail doesn't use this hook, so it's **not** possible to change setting for CiviMail by this extension. Instead of this CiviMail uses default setting `mailing_backend` provided by page Outbound Mail.
+
+This works only when Outbound Mail is set to any STMP server.
+
+## How to add alternative mailer
+
+* set your alternative SMTP at "Outbound Mail" page
+* run sql query
+
+```sql
+INSERT INTO civicrm_setting (name, value, domain_id, contact_id, is_domain, component_id, created_date, created_id)
+  SELECT 'mailing_backend_alternate1', value, domain_id, contact_id, is_domain, component_id, created_date, created_id
+  FROM civicrm_setting WHERE name = 'mailing_backend';
+```
+
+* set your default SMTP at "Outbound Mail" page
 
 ## How to switch on
 
@@ -22,36 +39,36 @@ There are three ways for switch on:
 ```php
 $params['ams'] = 1; // during preparing params for method CRM_Utils_Mail::send()
 ```
-* set up directly session variable:
-```php
-$session = CRM_Core_Session::singleton();
-$session->set('ams', 1, 'ams');
-```
-* set up `groupName` in settings `reGroupName*`. Use sql query to update, for example:
+* set up `groupName` in settings `reGroupName*` as a list of regular expressions. Use sql query to insert or update, for example:
 ```sql
+INSERT INTO civicrm_setting (name, value, domain_id, contact_id, is_domain, component_id, created_date, created_id)
+SELECT 'reGroupName1', 's:52:"/Scheduled Reminder Sender/||/Activity Email Sender/";', domain_id, contact_id, is_domain, component_id, created_date, created_id
+FROM civicrm_setting WHERE name = 'mailing_backend';
+
 UPDATE civicrm_setting
-SET value = 's:124:"/Scheduled Reminder Sender/||/Activity Email Sender/||/Scheduled Reminder Sender/||/Report Email Sender/||/Mailing Event .*/";'
+SET value = 's:95:"/Scheduled Reminder Sender/||/Activity Email Sender/||/Report Email Sender/||/Mailing Event .*/";'
 WHERE name = 'reGroupName1';
 
 UPDATE civicrm_setting
 SET value = 's:0:"";'
-WHERE name = 'reGroupName2';
+WHERE name = 'reGroupName1';
 ```
 
 Emails from `reGroupName1` uses `mailing_backend_alternate1` configuration.
 
-How to set up first alternate server as a current Outbound Mail:
+### List of groupNames
 
-```sql
-UPDATE civicrm_setting
-SET value = (SELECT value FROM civicrm_setting WHERE name = 'mailing_backend')
-WHERE name = 'mailing_backend_alternate1';
-```
+* /Scheduled Reminder Sender/
+* /Mailing Event .*/
+* /Activity Email Sender/
+* /Report Email Sender/
+* /SpeakCivi Email Sender/ - confirmation emails in SpeakCivi extension
+* /SEPA Email Sender/ - emails in SEPA extension
 
-## Meaning of value
+## Meaning of session variable
 
-Thanks to value of session variable `ams` extension decides which alternate server will be used.
+Thanks to value of session variable `ams` extension decides which alternative mailer will be used.
 
-* `0` - use default mailing server (this depends on `mailing_backend`),
-* `1` - use first alternate mailing server,
-* `2` - use second alternate mailing server.
+* `0` - use default SMTP server (this depends on `mailing_backend`),
+* `1` - use first alternative SMTP server,
+* `2` - use second alternative SMTP server.
