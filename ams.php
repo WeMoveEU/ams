@@ -135,7 +135,7 @@ function ams_civicrm_alterMailParams(&$params, $context) {
       $session = CRM_Core_Session::singleton();
       $session->set('ams', $params['ams'], 'ams');
     }
-    else if (array_key_exists('groupName', $params)) {
+    elseif (array_key_exists('groupName', $params)) {
       foreach (range(1, 2, 1) as $key) {
         $setting = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, 'reGroupName'.$key);
         if ($setting) {
@@ -151,6 +151,12 @@ function ams_civicrm_alterMailParams(&$params, $context) {
           }
         }
       }
+    }
+    elseif (CRM_Ams_Mailjet::isTest($params)) {
+      // fixme move to configuration somewhere
+      $alternativeMailerForTesting = 1;
+      $session = CRM_Core_Session::singleton();
+      $session->set('ams', $alternativeMailerForTesting, 'ams');
     }
   }
 }
