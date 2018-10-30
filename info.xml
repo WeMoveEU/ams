@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<extension key="eu.wemove.ams" type="module">
-  <file>ams</file>
+<extension key="eu.wemove.gooseberry" type="module">
+  <file>gooseberry</file>
   <name>Gooseberry - Alternative Mailer for CiviCRM</name>
   <description>Gooseberry - Alternative Mailer for CiviCRM</description>
   <license>AGPL-3.0</license>
@@ -22,6 +22,6 @@
   </compatibility>
   <comments>Gooseberry - Alternative Mailer for CiviCRM</comments>
   <civix>
-    <namespace>CRM/Ams</namespace>
+    <namespace>CRM/Gooseberry</namespace>
   </civix>
 </extension>

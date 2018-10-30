@@ -1,6 +1,6 @@
 <?php
 
-class CRM_Ams_Mailjet {
+class CRM_Gooseberry_Mailjet {
 
   /**
    * Check if email is testing

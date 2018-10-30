@@ -1,4 +1,4 @@
-Package: eu.wemove.ams
+Package: eu.wemove.gooseberry
 Copyright (C) 2016, scardinius <scardinius@chords.pl>
 Licensed under the GNU Affero Public License 3.0 (below).
 

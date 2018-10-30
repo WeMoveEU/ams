@@ -1,6 +1,6 @@
 <?php
 
-require_once 'ams.civix.php';
+require_once 'gooseberry.civix.php';
 
 /**
  * Implements hook_civicrm_config().
@@ -13,8 +13,6 @@ function ams_civicrm_config(&$config) {
 
 /**
  * Implements hook_civicrm_xmlMenu().
- *
- * @param $files array(string)
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_xmlMenu
  */
@@ -60,13 +58,6 @@ function ams_civicrm_disable() {
 
 /**
  * Implements hook_civicrm_upgrade().
- *
- * @param $op string, the type of operation being performed; 'check' or 'enqueue'
- * @param $queue CRM_Queue_Queue, (for 'enqueue') the modifiable list of pending up upgrade tasks
- *
- * @return mixed
- *   Based on op. for 'check', returns array(boolean) (TRUE if upgrades are pending)
- *                for 'enqueue', returns void
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_upgrade
  */
@@ -125,9 +116,6 @@ function ams_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
 
 /**
  * Implements hook_civicrm_alterMailParams().
- *
- * @param $params
- * @param $context
  */
 function ams_civicrm_alterMailParams(&$params, $context) {
   if ($context == 'singleEmail') {
@@ -137,7 +125,7 @@ function ams_civicrm_alterMailParams(&$params, $context) {
     }
     elseif (array_key_exists('groupName', $params)) {
       foreach (range(1, 2, 1) as $key) {
-        $setting = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, 'reGroupName'.$key);
+        $setting = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, 'reGroupName' . $key);
         if ($setting) {
           $reTab = explode("||", $setting);
           if (is_array($reTab) && count($reTab) > 0) {
@@ -152,7 +140,7 @@ function ams_civicrm_alterMailParams(&$params, $context) {
         }
       }
     }
-    elseif (CRM_Ams_Mailjet::isTest($params)) {
+    elseif (CRM_Gooseberry_Mailjet::isTest($params)) {
       // fixme move to configuration somewhere
       $alternativeMailerForTesting = 1;
       $session = CRM_Core_Session::singleton();
@@ -164,16 +152,12 @@ function ams_civicrm_alterMailParams(&$params, $context) {
 
 /**
  * Implements hook_civicrm_alterMailer().
- *
- * @param $mailer
- * @param $driver
- * @param $params
  */
 function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
   $session = CRM_Core_Session::singleton();
   $ams = $session->get('ams', 'ams');
   if ($ams) {
-    $name = 'mailing_backend_alternate'.(int)$ams;
+    $name = 'mailing_backend_alternate' . (int) $ams;
     $setting = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, $name);
     if ($setting['outBound_option'] == CRM_Mailing_Config::OUTBOUND_OPTION_SMTP) {
       $params['host'] = $setting['smtpServer'] ? $setting['smtpServer'] : 'localhost';
@@ -186,7 +170,8 @@ function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
         $params['auth'] = TRUE;
         $mailer->username = $params['username'];
         $mailer->password = $params['password'];
-      } else {
+      }
+      else {
         $params['auth'] = FALSE;
       }
       $mailer->auth = $params['auth'];
@@ -197,10 +182,8 @@ function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
 
 /**
  * Implements hook_civicrm_postEmailSend().
- *
- * @param $params
  */
 function ams_civicrm_postEmailSend(&$params) {
   $session = CRM_Core_Session::singleton();
-  $session->set('ams', null, 'ams');
+  $session->set('ams', NULL, 'ams');
 }
