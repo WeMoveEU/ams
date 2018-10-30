@@ -141,12 +141,6 @@ function gooseberry_civicrm_alterMailParams(&$params, $context) {
         }
       }
     }
-    elseif (CRM_Gooseberry_Mailjet::isTest($params)) {
-      // fixme move to configuration somewhere
-      $alternativeMailerForTesting = 1;
-      $session = CRM_Core_Session::singleton();
-      $session->set('gooseberry', $alternativeMailerForTesting, E::LONG_NAME);
-    }
   }
 }
 

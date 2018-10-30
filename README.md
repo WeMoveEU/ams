@@ -18,6 +18,8 @@ The extension rewrites `$mailer` object in `hook_civicrm_alterMailParams()`. Rem
 
 This works only when Outbound Mail is set to any STMP server.
 
+This works only for `$context = 'singleEmail'`.
+
 ## How to add alternative mailer
 
 * set your alternative SMTP at "Outbound Mail" page
@@ -55,8 +57,6 @@ WHERE name = 'reGroupName1';
 ```
 
 Emails from `reGroupName1` uses `mailing_backend_alternate1` configuration.
-
-* set header of email for Mailjet `X-Mailjet-Prio` = `3`
 
 ### List of groupNames
 
