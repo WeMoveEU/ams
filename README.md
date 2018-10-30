@@ -1,4 +1,4 @@
-# Alternative Mailer Support
+# Gooseberry - Alternative Mailer for CiviCRM
 
 Extension provides handling mailer objects in CiviCRM for transactional emails (not CiviMail!).
 

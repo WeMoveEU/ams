@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <extension key="eu.wemove.ams" type="module">
   <file>ams</file>
-  <name>Alternative Mailer Server</name>
-  <description>Alternative Mailer Server</description>
+  <name>Gooseberry - Alternative Mailer for CiviCRM</name>
+  <description>Gooseberry - Alternative Mailer for CiviCRM</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>scardinius</author>
     <email>scardinius@chords.pl</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">https://github.com/WeMoveEU/ams</url>
-    <url desc="Documentation">https://github.com/WeMoveEU/ams</url>
-    <url desc="Support">https://github.com/WeMoveEU/ams</url>
+    <url desc="Main Extension Page">https://github.com/WeMoveEU/eu.wemove.gooseberry</url>
+    <url desc="Documentation">https://github.com/WeMoveEU/eu.wemove.gooseberry</url>
+    <url desc="Support">https://github.com/WeMoveEU/eu.wemove.gooseberry</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
   <releaseDate>2016-02-12</releaseDate>
@@ -20,7 +20,7 @@
   <compatibility>
     <ver>5.3</ver>
   </compatibility>
-  <comments>Alternative Mailer Server</comments>
+  <comments>Gooseberry - Alternative Mailer for CiviCRM</comments>
   <civix>
     <namespace>CRM/Ams</namespace>
   </civix>
