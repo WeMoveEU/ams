@@ -56,6 +56,8 @@ WHERE name = 'reGroupName1';
 
 Emails from `reGroupName1` uses `mailing_backend_alternate1` configuration.
 
+* set header of email for Mailjet `X-Mailjet-Prio` = `3`
+
 ### List of groupNames
 
 * /Scheduled Reminder Sender/
