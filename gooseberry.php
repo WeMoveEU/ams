@@ -8,8 +8,8 @@ use CRM_Gooseberry_ExtensionUtil as E;
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_config
  */
-function ams_civicrm_config(&$config) {
-  _ams_civix_civicrm_config($config);
+function gooseberry_civicrm_config(&$config) {
+  _gooseberry_civix_civicrm_config($config);
 }
 
 /**
@@ -17,8 +17,8 @@ function ams_civicrm_config(&$config) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_xmlMenu
  */
-function ams_civicrm_xmlMenu(&$files) {
-  _ams_civix_civicrm_xmlMenu($files);
+function gooseberry_civicrm_xmlMenu(&$files) {
+  _gooseberry_civix_civicrm_xmlMenu($files);
 }
 
 /**
@@ -26,8 +26,8 @@ function ams_civicrm_xmlMenu(&$files) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_install
  */
-function ams_civicrm_install() {
-  _ams_civix_civicrm_install();
+function gooseberry_civicrm_install() {
+  _gooseberry_civix_civicrm_install();
 }
 
 /**
@@ -35,8 +35,8 @@ function ams_civicrm_install() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_uninstall
  */
-function ams_civicrm_uninstall() {
-  _ams_civix_civicrm_uninstall();
+function gooseberry_civicrm_uninstall() {
+  _gooseberry_civix_civicrm_uninstall();
 }
 
 /**
@@ -44,8 +44,8 @@ function ams_civicrm_uninstall() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
  */
-function ams_civicrm_enable() {
-  _ams_civix_civicrm_enable();
+function gooseberry_civicrm_enable() {
+  _gooseberry_civix_civicrm_enable();
 }
 
 /**
@@ -53,8 +53,8 @@ function ams_civicrm_enable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
  */
-function ams_civicrm_disable() {
-  _ams_civix_civicrm_disable();
+function gooseberry_civicrm_disable() {
+  _gooseberry_civix_civicrm_disable();
 }
 
 /**
@@ -62,8 +62,8 @@ function ams_civicrm_disable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_upgrade
  */
-function ams_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
-  return _ams_civix_civicrm_upgrade($op, $queue);
+function gooseberry_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
+  return _gooseberry_civix_civicrm_upgrade($op, $queue);
 }
 
 /**
@@ -74,8 +74,8 @@ function ams_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_managed
  */
-function ams_civicrm_managed(&$entities) {
-  _ams_civix_civicrm_managed($entities);
+function gooseberry_civicrm_managed(&$entities) {
+  _gooseberry_civix_civicrm_managed($entities);
 }
 
 /**
@@ -87,8 +87,8 @@ function ams_civicrm_managed(&$entities) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
  */
-function ams_civicrm_caseTypes(&$caseTypes) {
-  _ams_civix_civicrm_caseTypes($caseTypes);
+function gooseberry_civicrm_caseTypes(&$caseTypes) {
+  _gooseberry_civix_civicrm_caseTypes($caseTypes);
 }
 
 /**
@@ -101,8 +101,8 @@ function ams_civicrm_caseTypes(&$caseTypes) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
  */
-function ams_civicrm_angularModules(&$angularModules) {
-  _ams_civix_civicrm_angularModules($angularModules);
+function gooseberry_civicrm_angularModules(&$angularModules) {
+  _gooseberry_civix_civicrm_angularModules($angularModules);
 }
 
 /**
@@ -110,15 +110,15 @@ function ams_civicrm_angularModules(&$angularModules) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_alterSettingsFolders
  */
-function ams_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
-  _ams_civix_civicrm_alterSettingsFolders($metaDataFolders);
+function gooseberry_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
+  _gooseberry_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
 
 /**
  * Implements hook_civicrm_alterMailParams().
  */
-function ams_civicrm_alterMailParams(&$params, $context) {
+function gooseberry_civicrm_alterMailParams(&$params, $context) {
   if ($context == 'singleEmail') {
     if (array_key_exists('gooseberry', $params) && $params['gooseberry']) {
       $session = CRM_Core_Session::singleton();
@@ -154,7 +154,7 @@ function ams_civicrm_alterMailParams(&$params, $context) {
 /**
  * Implements hook_civicrm_alterMailer().
  */
-function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
+function gooseberry_civicrm_alterMailer(&$mailer, $driver, $params) {
   $session = CRM_Core_Session::singleton();
   $ams = $session->get('gooseberry', E::LONG_NAME);
   if ($ams) {
@@ -184,7 +184,7 @@ function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
 /**
  * Implements hook_civicrm_postEmailSend().
  */
-function ams_civicrm_postEmailSend(&$params) {
+function gooseberry_civicrm_postEmailSend(&$params) {
   $session = CRM_Core_Session::singleton();
   $session->set('gooseberry', NULL, E::LONG_NAME);
 }
