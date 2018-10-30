@@ -9,7 +9,7 @@ Assumptions:
 * each alternative mailer has own setting `mailing_backend_alternate[1-2]`,
     * first at `mailing_backend_alternate1`,
     * second at `mailing_backend_alternate2`,
-* in session variable `ams` is stored which mailer will be used,
+* in session variable `gooseberry` is stored which mailer will be used,
 * mailer is changed by `hook_civicrm_alterMailer()`.
 
 ## How it works
@@ -37,7 +37,7 @@ There are three ways for switch on:
 
 * set up params:
 ```php
-$params['ams'] = 1; // during preparing params for method CRM_Utils_Mail::send()
+$params['gooseberry'] = 1; // during preparing params for method CRM_Utils_Mail::send()
 ```
 * set up `groupName` in settings `reGroupName*` as a list of regular expressions. Use sql query to insert or update, for example:
 ```sql
@@ -67,7 +67,7 @@ Emails from `reGroupName1` uses `mailing_backend_alternate1` configuration.
 
 ## Meaning of session variable
 
-Thanks to value of session variable `ams` extension decides which alternative mailer will be used.
+Thanks to value of session variable `gooseberry` extension decides which alternative mailer will be used.
 
 * `0` - use default SMTP server (this depends on `mailing_backend`),
 * `1` - use first alternative SMTP server,

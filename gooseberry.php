@@ -1,6 +1,7 @@
 <?php
 
 require_once 'gooseberry.civix.php';
+use CRM_Gooseberry_ExtensionUtil as E;
 
 /**
  * Implements hook_civicrm_config().
@@ -119,9 +120,9 @@ function ams_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  */
 function ams_civicrm_alterMailParams(&$params, $context) {
   if ($context == 'singleEmail') {
-    if (array_key_exists('ams', $params) && $params['ams']) {
+    if (array_key_exists('gooseberry', $params) && $params['gooseberry']) {
       $session = CRM_Core_Session::singleton();
-      $session->set('ams', $params['ams'], 'ams');
+      $session->set('gooseberry', $params['gooseberry'], E::LONG_NAME);
     }
     elseif (array_key_exists('groupName', $params)) {
       foreach (range(1, 2, 1) as $key) {
@@ -132,7 +133,7 @@ function ams_civicrm_alterMailParams(&$params, $context) {
             foreach ($reTab as $re) {
               if (preg_match(trim($re), $params['groupName'])) {
                 $session = CRM_Core_Session::singleton();
-                $session->set('ams', $key, 'ams');
+                $session->set('gooseberry', $key, E::LONG_NAME);
                 break;
               }
             }
@@ -144,7 +145,7 @@ function ams_civicrm_alterMailParams(&$params, $context) {
       // fixme move to configuration somewhere
       $alternativeMailerForTesting = 1;
       $session = CRM_Core_Session::singleton();
-      $session->set('ams', $alternativeMailerForTesting, 'ams');
+      $session->set('gooseberry', $alternativeMailerForTesting, E::LONG_NAME);
     }
   }
 }
@@ -155,7 +156,7 @@ function ams_civicrm_alterMailParams(&$params, $context) {
  */
 function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
   $session = CRM_Core_Session::singleton();
-  $ams = $session->get('ams', 'ams');
+  $ams = $session->get('gooseberry', E::LONG_NAME);
   if ($ams) {
     $name = 'mailing_backend_alternate' . (int) $ams;
     $setting = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, $name);
@@ -185,5 +186,5 @@ function ams_civicrm_alterMailer(&$mailer, $driver, $params) {
  */
 function ams_civicrm_postEmailSend(&$params) {
   $session = CRM_Core_Session::singleton();
-  $session->set('ams', NULL, 'ams');
+  $session->set('gooseberry', NULL, E::LONG_NAME);
 }
