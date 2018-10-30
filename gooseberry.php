@@ -156,9 +156,9 @@ function gooseberry_civicrm_alterMailParams(&$params, $context) {
  */
 function gooseberry_civicrm_alterMailer(&$mailer, $driver, $params) {
   $session = CRM_Core_Session::singleton();
-  $ams = $session->get('gooseberry', E::LONG_NAME);
-  if ($ams) {
-    $name = 'mailing_backend_alternate' . (int) $ams;
+  $gooseberry = $session->get('gooseberry', E::LONG_NAME);
+  if ($gooseberry) {
+    $name = 'mailing_backend_alternate' . (int) $gooseberry;
     $setting = CRM_Core_BAO_Setting::getItem(CRM_Core_BAO_Setting::MAILING_PREFERENCES_NAME, $name);
     if ($setting['outBound_option'] == CRM_Mailing_Config::OUTBOUND_OPTION_SMTP) {
       $params['host'] = $setting['smtpServer'] ? $setting['smtpServer'] : 'localhost';
