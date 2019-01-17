@@ -3,6 +3,15 @@
 class CRM_Gooseberry_Settings {
 
   /**
+   * Mailing Backend configuration - default for CiviMail
+   *
+   * @return mixed
+   */
+  public static function mailingBackend() {
+    return Civi::settings()->get(self::mailingBackendKey());
+  }
+
+  /**
    * Mailing Backend Alternate 1 (first) configuration
    *
    * @param string $value config array in JSON format
@@ -68,6 +77,10 @@ class CRM_Gooseberry_Settings {
     $value = Civi::settings()->get(self::reGroupName2Key());
 
     return $value;
+  }
+
+  private static function mailingBackendKey() {
+    return 'mailing_backend';
   }
 
   private static function backendAlternate1Key() {

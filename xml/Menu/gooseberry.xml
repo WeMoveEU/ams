@@ -3,7 +3,7 @@
   <item>
     <path>civicrm/gooseberry/settings</path>
     <page_callback>CRM_Gooseberry_Page_Settings</page_callback>
-    <title>Settings</title>
-    <access_arguments>Administer CiviCRM</access_arguments>
+    <title>Gooseberry Settings</title>
+    <access_arguments>administer CiviCRM</access_arguments>
   </item>
 </menu>
