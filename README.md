@@ -2,7 +2,7 @@
 
 Extension provides handling mailer objects in CiviCRM for transactional emails (not CiviMail!).
 
-There is no user interface, yet.
+There is only page displaying current settings, on url civicrm/gooseberry/settings.
 
 Assumptions:
 
@@ -60,10 +60,10 @@ Emails from `reGroupName1` uses `mailing_backend_alternate1` configuration.
 
 ### List of groupNames
 
-* /Scheduled Reminder Sender/
-* /Mailing Event .*/
-* /Activity Email Sender/
-* /Report Email Sender/
+* /Scheduled Reminder Sender/ - email via Scheduled Job job.send_reminder
+* /Mailing Event .*/ - email "Confirm a pending subscription" on mailing
+* /Activity Email Sender/ - email via "Send an Email" form below "Actions" button on contact page
+* /Report Email Sender/ - email via tab "Email Delivery" on any report
 * /SpeakCivi Email Sender/ - confirmation emails in SpeakCivi extension
 * /SEPA Email Sender/ - emails in SEPA extension
 
