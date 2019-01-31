@@ -52,3 +52,5 @@
     </td>
   </tr>
 </table>
+
+<p><a href="https://github.com/WeMoveEU/eu.wemove.gooseberry/blob/master/README.md">Documentation is here</a></p>
