@@ -134,6 +134,7 @@ function gooseberry_civicrm_alterMailParams(&$params, $context) {
               if (preg_match(trim($re), $params['groupName'])) {
                 $session = CRM_Core_Session::singleton();
                 $session->set('gooseberry', $key, E::LONG_NAME);
+                CRM_Utils_Mail::createMailer();
                 break;
               }
             }
@@ -180,5 +181,9 @@ function gooseberry_civicrm_alterMailer(&$mailer, $driver, $params) {
  */
 function gooseberry_civicrm_postEmailSend(&$params) {
   $session = CRM_Core_Session::singleton();
-  $session->set('gooseberry', NULL, E::LONG_NAME);
+  $gooseberry = $session->get('gooseberry', E::LONG_NAME);
+  if ($gooseberry) {
+    $session->set('gooseberry', NULL, E::LONG_NAME);
+    CRM_Utils_Mail::createMailer();
+  }
 }
