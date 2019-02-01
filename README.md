@@ -64,7 +64,8 @@ Emails from `reGroupName1` uses `mailing_backend_alternate1` configuration.
 * /Mailing Event .*/ - email "Confirm a pending subscription" on mailing
 * /Activity Email Sender/ - email via "Send an Email" form below "Actions" button on contact page
 * /Report Email Sender/ - email via tab "Email Delivery" on any report
-* /SpeakCivi Email Sender/ - confirmation emails in SpeakCivi extension
+* /SpeakCivi WeMove/ - confirmation emails in SpeakCivi extension for standard campaigns
+* /SpeakCivi YouMove/ - confirmation emails in SpeakCivi extension for YouMove campaigns
 * /SEPA Email Sender/ - emails in SEPA extension
 
 ## Meaning of session variable
