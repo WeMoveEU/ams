@@ -35,7 +35,7 @@ INSERT INTO civicrm_setting (name, value, domain_id, contact_id, is_domain, comp
 
 ## How to switch on
 
-There are three ways for switch on:
+There are two ways for switch on:
 
 * set up params:
 ```php
@@ -67,6 +67,7 @@ Emails from `reGroupName1` uses `mailing_backend_alternate1` configuration.
 * /SpeakCivi WeMove/ - confirmation emails in SpeakCivi extension for standard campaigns
 * /SpeakCivi YouMove/ - confirmation emails in SpeakCivi extension for YouMove campaigns
 * /SEPA Email Sender/ - emails in SEPA extension
+* /WemoveConsent.request/ - emails with consent request sent via CommitCivi
 
 ## Meaning of session variable
 
